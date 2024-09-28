@@ -1,6 +1,7 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
 use std::env;
+use std::fs;
 fn main() {
     // Uncomment this block to pass the first stage
     // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
@@ -21,12 +22,18 @@ fn main() {
             break;
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
-            let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
-            let path_index = path.iter().position(|&r| r.contains(&args));
-            match path_index {
-                Some(pos) => println!("{} is {}/{}", args, path[pos], args),
-                None => println!("{}: not found", args)
-            }
+            let path: Vec<&str> = raw_path.split(":").collect();
+            let pos = path.iter().position(|&dir| {
+                let full_path = format!("{}/{}", dir, args);
+                fs::metadata(full_path).is_ok();
+            });
+            if path_found {
+                let path_index = path.iter().position(|&r| r.contains(&args)).unwrap();
+                println!("{} is {}/{}", args, path[path_index], args)
+            } else {
+                println!("{}: not found", args)
+            } 
+            
         } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
             println!("{}", args);
         } else {
