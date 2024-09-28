@@ -20,7 +20,7 @@ fn main() {
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
         let is_args_builtin = commands.iter().any(|cmd| *cmd == args);
-        let exec_path = raw_path.split(":").collect();
+        let exec_path: Vec<&str> = raw_path.split(":").collect();
         let is_cmd_executable = exec_path.iter().any(|&dir| {
             let full_path = format!("{}/{}", dir, cmd);
             fs::metadata(full_path).is_ok()
