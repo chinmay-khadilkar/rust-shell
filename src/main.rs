@@ -25,7 +25,7 @@ fn main() {
             println!("{:?}", path);
             let path_index = path.iter().position(|&r| r.contains(&args));
             match path_index {
-                Some(pos) => println!("{} is {}", args, path[pos]),
+                Some(pos) => println!("{} is {}/{}", args, path[pos], args),
                 None => println!("{}: not found", args)
             }
         } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
