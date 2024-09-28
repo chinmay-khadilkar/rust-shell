@@ -1,5 +1,6 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
+let commands: Vec<str> = Vec!["echo", "type", "exit"]
 fn main() {
     // Uncomment this block to pass the first stage
     loop {
@@ -15,6 +16,13 @@ fn main() {
             break;
         } else if input.trim().contains("echo") {
             println!("{}", input.trim().split(" ").collect::<Vec<&str>>()[1..].join(" "));
+        } else if input.trim().contains("type") {
+            if commands.iter().any(|e| input.trim().contains(e)) {
+                let cmd = input.trim().split(" ").collect::<Vec<&str>>()[1..].join("");
+                println!("{} is a builtin command", cmd);
+            } else {
+                println!("{}: command not found", input.trim());
+            }
         } else {
             println!("{}: command not found", input.trim());
         }
