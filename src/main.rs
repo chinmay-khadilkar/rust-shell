@@ -13,8 +13,8 @@ fn main() {
         stdin.read_line(&mut input).unwrap();
         if input.trim() == String::from("exit 0") {
             break;
-        } else if input.contains("echo") {
-            println!(input.trim().split(" ").collect::<Vec<&str>>()[1..].join(" "));
+        } else if input.trim().contains("echo") {
+            println!("{}", input.trim().split(" ").collect::<Vec<&str>>()[1..].join(" "));
         } else {
             println!("{}: command not found", input.trim());
         }
