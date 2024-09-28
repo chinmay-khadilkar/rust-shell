@@ -5,8 +5,8 @@ fn main() {
     // Uncomment this block to pass the first stage
     // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
     let raw_path = env::var("PATH").unwrap();
-    let exe_path: Vec<str> = env::args().collect();
-    println!("{}", exe_path);
+    let exe_path: Vec<&str> = env::args().collect();
+    println!("{:?}", exe_path);
     loop {
     
         print!("$ ");
