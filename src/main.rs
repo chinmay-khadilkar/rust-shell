@@ -20,7 +20,7 @@ fn main() {
         }  else if cmd == String::from("type") {
             // let query_cmd = args.join("");
             if  commands.contains(&args) {
-                println!("{} is a builtin command", args);
+                println!("{} is a shell builtin", args);
             } else {
                 println!("{}: command not found", args);
             }
