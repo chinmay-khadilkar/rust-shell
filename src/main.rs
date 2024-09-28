@@ -25,7 +25,7 @@ fn main() {
             let path: Vec<&str> = raw_path.split(":").collect();
             let path_found = path.iter().any(|&dir| {
                 let full_path = format!("{}/{}", dir, args);
-                fs::metadata(full_path).is_ok();
+                fs::metadata(full_path).is_ok()
             });
             if path_found {
                 let path_index = path.iter().position(|&r| r.contains(&args)).unwrap();
