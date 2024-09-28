@@ -31,7 +31,7 @@ fn main() {
                 let path_index = path.iter().position(|&dir| {
                     let full_path = format!("{}/{}", dir, args);
                     fs::metadata(full_path).is_ok()
-                });
+                }).unwrap();
                 println!("{} is {}/{}", args, path[path_index], args)
             } else {
                 println!("{}: not found", args)
