@@ -1,6 +1,6 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
-let commands: Vec<str> = Vec!["echo", "type", "exit"]
+const commands: Vec<str> = Vec!["echo", "type", "exit"];
 fn main() {
     // Uncomment this block to pass the first stage
     loop {
