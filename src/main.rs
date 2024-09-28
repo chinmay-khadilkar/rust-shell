@@ -20,12 +20,12 @@ fn main() {
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
         let is_args_builtin = commands.iter().any(|cmd| *cmd == args);
-        let is_cmd_executable = path.iter().any(|&dir| {
+        let is_cmd_executable = raw_path.split(":").any(|&dir| {
             let full_path = format!("{}/{}", dir, cmd);
             fs::metadata(full_path).is_ok()
         });
         if is_cmd_executable {
-            let exec_path_index = path.iter().position(|&dir| {
+            let exec_path_index = raw_path.split(":").position(|&dir| {
                 let full_path = format!("{}/{}", dir, cmd);
                 fs::metadata(full_path).is_ok()
             }).unwrap();
