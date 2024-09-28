@@ -1,9 +1,12 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
+use std::env;
 fn main() {
     // Uncomment this block to pass the first stage
-    let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
+    // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
+    let raw_path = env::var("PATH").unwrap();
     loop {
+    
         print!("$ ");
         
         io::stdout().flush().unwrap();
@@ -19,10 +22,12 @@ fn main() {
             break;
         }  else if cmd == String::from("type") {
             // let query_cmd = args.join("");
-            if  commands.contains(&args) {
-                println!("{} is a shell builtin", args);
-            } else {
-                println!("{}: not found", args);
+            
+            let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
+            let pathIndex = path.clone().iter().position(|&r| r.contains(&args));
+            match pathIndex {
+                Some(pos) => println!("{} is {}", args, path[pos]),
+                None => println!("{}: not found", args)
             }
         } else if cmd == String::from("echo") {
             println!("{}", args);
