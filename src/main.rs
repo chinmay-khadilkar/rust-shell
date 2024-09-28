@@ -20,7 +20,7 @@ fn main() {
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
         let is_args_builtin = commands.iter().any(|cmd| *cmd == args);
-        let is_cmd_executable = raw_path.split(":").any(|&dir| {
+        let is_cmd_executable = raw_path.split(":").collect().iter().any(|&dir| {
             let full_path = format!("{}/{}", dir, cmd);
             fs::metadata(full_path).is_ok()
         });
@@ -31,7 +31,7 @@ fn main() {
                 fs::metadata(full_path).is_ok()
             }).unwrap();
             let complete_cmd = path[exec_path_index];
-            Command::new(complete_cmd).args(args).status().expect("failed to execute process");
+            Command::new(complete_cmd).args(args.chars()).status().expect("failed to execute process");
         } else if input.trim() == String::from("exit 0") {
             break;
         } else if cmd == String::from("type") && is_args_builtin == false {
