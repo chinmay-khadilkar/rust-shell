@@ -18,7 +18,7 @@ fn main() {
         let cmd_args = input.trim().split(" ").collect::<Vec<&str>>();
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
-        let is_args_builtin = commands.iter().any(|cmd| cmd == args);
+        let is_args_builtin = commands.iter().any(|&cmd| cmd == args);
         if input.trim() == String::from("exit 0") {
             break;
         } else if cmd == String::from("type") && is_args_builtin == false {
