@@ -22,7 +22,7 @@ fn main() {
             if  commands.contains(&args) {
                 println!("{} is a shell builtin", args);
             } else {
-                println!("{}: command not found", args);
+                println!("{}: not found", args);
             }
         } else if cmd == String::from("echo") {
             println!("{}", args);
