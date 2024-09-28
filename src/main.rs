@@ -5,7 +5,7 @@ fn main() {
     // Uncomment this block to pass the first stage
     // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
     let raw_path = env::var("PATH").unwrap();
-    let exe_path = env::args().collect();
+    let exe_path: Vec<String> = env::args().collect();
     loop {
     
         print!("$ ");
@@ -23,8 +23,8 @@ fn main() {
             break;
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
-            let path: Vec<&str> = exe_path.split(":").collect::<Vec<&str>>();
-            let path_index = path.clone().iter().position(|&r| r.contains(&args));
+            //let path: Vec<&str> = exe_path.split(":").collect::<Vec<&str>>();
+            let path_index = exe_path.iter().position(|&r| r.contains(&args));
             match path_index {
                 Some(pos) => println!("{} is {}", args, path[pos]),
                 None => println!("{}: not found", args)
