@@ -27,7 +27,7 @@ fn main() {
         });
         if is_cmd_executable {
             
-            let exec_path_index = exec_path.position(|&dir| {
+            let exec_path_index = exec_path.iter().position(|&dir| {
                 let full_path = format!("{}/{}", dir, cmd);
                 fs::metadata(full_path).is_ok()
             }).unwrap();
