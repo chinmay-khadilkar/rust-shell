@@ -24,7 +24,7 @@ fn main() {
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
             //let path: Vec<&str> = exe_path.split(":").collect::<Vec<&str>>();
-            let path_index = exe_path.iter().position(|&r| r.contains(&args));
+            let path_index = exe_path.iter().position(|r| r.contains(&args));
             match path_index {
                 Some(pos) => println!("{} is {}", args, exe_path[pos]),
                 None => println!("{}: not found", args)
