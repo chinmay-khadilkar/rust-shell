@@ -22,7 +22,6 @@ fn main() {
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
             let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
-            println!("{:?}", path);
             let path_index = path.iter().position(|&r| r.contains(&args));
             match path_index {
                 Some(pos) => println!("{} is {}/{}", args, path[pos], args),
