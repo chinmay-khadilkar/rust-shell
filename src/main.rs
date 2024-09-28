@@ -24,8 +24,9 @@ fn main() {
             // let query_cmd = args.join("");
             
             let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
-            let pathIndex = path.clone().iter().position(|&r| r.contains(&args));
-            match pathIndex {
+            let path_index = path.clone().iter().position(|&r| r.contains(&args));
+            println!("{}", raw_path);
+            match path_index {
                 Some(pos) => println!("{} is {}", args, path[pos]),
                 None => println!("{}: not found", args)
             }
