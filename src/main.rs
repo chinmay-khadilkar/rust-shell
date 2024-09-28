@@ -20,6 +20,8 @@ fn main() {
         let args = cmd_args[1..].join(" ");
         if input.trim() == String::from("exit 0") {
             break;
+        } else if cmd == String::from("type") && args == String::from("echo") {
+            println!("{}", args);
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
             let path: Vec<&str> = raw_path.split(":").collect();
