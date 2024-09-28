@@ -23,7 +23,7 @@ fn main() {
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
             let path: Vec<&str> = raw_path.split(":").collect();
-            let pos = path.iter().position(|&dir| {
+            let path_found = path.iter().any(|&dir| {
                 let full_path = format!("{}/{}", dir, args);
                 fs::metadata(full_path).is_ok();
             });
