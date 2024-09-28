@@ -4,7 +4,7 @@ use std::env;
 use std::fs;
 fn main() {
     // Uncomment this block to pass the first stage
-    // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
+    let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
     let raw_path = env::var("PATH").unwrap();
     // let exe_path: Vec<String> = env::args().collect();
     loop {
@@ -18,11 +18,10 @@ fn main() {
         let cmd_args = input.trim().split(" ").collect::<Vec<&str>>();
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
+        let is_args_builtin = commands.any(|cmd| cmd == args);
         if input.trim() == String::from("exit 0") {
             break;
-        } else if cmd == String::from("type") && args == String::from("echo") {
-            println!("{}", args);
-        } else if cmd == String::from("type") {
+        } else if cmd == String::from("type") && is_args_builtin == false {
             // let query_cmd = args.join("");
             let path: Vec<&str> = raw_path.split(":").collect();
             let path_found = path.iter().any(|&dir| {
@@ -37,8 +36,10 @@ fn main() {
                 println!("{} is {}/{}", args, path[path_index], args)
             } else {
                 println!("{}: not found", args)
-            } 
-            
+            }
+        } else if cmd == String::from("type") && is_args_builtin == true {
+            let pos = commands.position(|&cmd| cmd == args);
+            println!("{} is a shell builtin", args);
         } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
             println!("{}", args);
         } else {
