@@ -7,7 +7,7 @@ fn main() {
     // let raw_path = env::var("PATH").unwrap();
     let exe_path: Vec<String> = env::args().collect();
     loop {
-        println!("{}", exe_path);
+        println!("{:?}", exe_path);
         print!("$ ");
         
         io::stdout().flush().unwrap();
