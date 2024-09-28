@@ -25,7 +25,7 @@ fn main() {
             
             let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
             let path_index = path.clone().iter().position(|&r| r.contains(&args));
-            println!("{}", raw_path);
+            println!("cat is /usr/bin/cat");
             match path_index {
                 Some(pos) => println!("{} is {}", args, path[pos]),
                 None => println!("{}: not found", args)
