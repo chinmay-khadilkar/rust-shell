@@ -26,7 +26,7 @@ fn main() {
             //let path: Vec<&str> = exe_path.split(":").collect::<Vec<&str>>();
             let path_index = exe_path.iter().position(|&r| r.contains(&args));
             match path_index {
-                Some(pos) => println!("{} is {}", args, path[pos]),
+                Some(pos) => println!("{} is {}", args, exe_path[pos]),
                 None => println!("{}: not found", args)
             }
         } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
