@@ -32,7 +32,7 @@ fn main() {
                 fs::metadata(full_path).is_ok()
             }).unwrap();
             let complete_cmd = exec_path[exec_path_index];
-            Command::new(complete_cmd).args(args.chars()).status().expect("failed to execute process");
+            Command::new(complete_cmd).args(args).status().expect("failed to execute process");
         } else if input.trim() == String::from("exit 0") {
             break;
         } else if cmd == String::from("type") && is_args_builtin == false {
