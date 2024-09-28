@@ -27,7 +27,7 @@ fn main() {
         } else if cmd == String::from("echo") {
             println!("{}", args);
         } else {
-            println!("{}: command not found", input.trim());
+            println!("{}: not found", input.trim());
         }
         
     }
