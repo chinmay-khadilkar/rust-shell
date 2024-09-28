@@ -17,8 +17,8 @@ fn main() {
         } else if input.trim().contains("echo") {
             println!("{}", input.trim().split(" ").collect::<Vec<&str>>()[1..].join(" "));
         } else if input.trim().contains("type") {
-            if commands.iter().any(|e| input.trim().contains(e)) {
-                let cmd = input.trim().split(" ").collect::<Vec<&str>>()[1..].join("");
+            let cmd = input.trim().split(" ").collect::<Vec<&str>>()[1..].join("");
+            if  commands.contains(cmd) {
                 println!("{} is a builtin command", cmd);
             } else {
                 println!("{}: command not found", input.trim());
