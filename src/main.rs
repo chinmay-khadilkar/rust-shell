@@ -2,6 +2,7 @@
 use std::io::{self, Write};
 use std::env;
 use std::fs;
+use std::process::Command;
 fn main() {
     // Uncomment this block to pass the first stage
     let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
@@ -19,7 +20,18 @@ fn main() {
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
         let is_args_builtin = commands.iter().any(|cmd| *cmd == args);
-        if input.trim() == String::from("exit 0") {
+        let is_cmd_executable = path.iter().any(|&dir| {
+            let full_path = format!("{}/{}", dir, cmd);
+            fs::metadata(full_path).is_ok()
+        });
+        if is_cmd_executable {
+            let exec_path_index = path.iter().position(|&dir| {
+                let full_path = format!("{}/{}", dir, cmd);
+                fs::metadata(full_path).is_ok()
+            }).unwrap();
+            let complete_cmd = path[exec_path_index];
+            Command:new(complete_cmd).args(args).status().expect("failed to execute process");
+        } else if input.trim() == String::from("exit 0") {
             break;
         } else if cmd == String::from("type") && is_args_builtin == false {
             // let query_cmd = args.join("");
