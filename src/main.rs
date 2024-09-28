@@ -4,10 +4,10 @@ use std::env;
 fn main() {
     // Uncomment this block to pass the first stage
     // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
-    let raw_path = env::var("PATH").unwrap();
+    // let raw_path = env::var("PATH").unwrap();
     let exe_path: Vec<String> = env::args().collect();
     loop {
-    
+        println!("{}", exe_path);
         print!("$ ");
         
         io::stdout().flush().unwrap();
