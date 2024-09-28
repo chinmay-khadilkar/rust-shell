@@ -30,7 +30,7 @@ fn main() {
                 Some(pos) => println!("{} is {}", args, path[pos]),
                 None => println!("{}: not found", args)
             }
-        } else if cmd == String::from("echo") {
+        } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
             println!("{}", args);
         } else {
             println!("{}: not found", input.trim());
