@@ -4,12 +4,10 @@ use std::env;
 fn main() {
     // Uncomment this block to pass the first stage
     // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
-    // let raw_path = env::var("PATH").unwrap();
-    let exe_path: Vec<String> = env::args().collect();
+    let raw_path = env::var("PATH").unwrap();
+    // let exe_path: Vec<String> = env::args().collect();
     loop {
-        println!("{:?}", exe_path);
         print!("$ ");
-        
         io::stdout().flush().unwrap();
 
         // Wait for user input
@@ -23,10 +21,10 @@ fn main() {
             break;
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
-            //let path: Vec<&str> = exe_path.split(":").collect::<Vec<&str>>();
-            let path_index = exe_path.iter().position(|r| r.contains(&args));
+            let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
+            let path_index = raw_path.iter().position(|&r| r.contains(&args));
             match path_index {
-                Some(pos) => println!("{} is {}", args, exe_path[pos]),
+                Some(pos) => println!("{} is {}", args, path[pos]),
                 None => println!("{}: not found", args)
             }
         } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
