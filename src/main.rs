@@ -20,17 +20,18 @@ fn main() {
         let cmd = cmd_args[0];
         let args = cmd_args[1..].join(" ");
         let is_args_builtin = commands.iter().any(|cmd| *cmd == args);
-        let is_cmd_executable = raw_path.split(":").collect().iter().any(|&dir| {
+        let exec_path = raw_path.split(":").collect();
+        let is_cmd_executable = exec_path.iter().any(|&dir| {
             let full_path = format!("{}/{}", dir, cmd);
             fs::metadata(full_path).is_ok()
         });
         if is_cmd_executable {
-            let path = raw_path.split(":").collect();
-            let exec_path_index = path.position(|&dir| {
+            
+            let exec_path_index = exec_path.position(|&dir| {
                 let full_path = format!("{}/{}", dir, cmd);
                 fs::metadata(full_path).is_ok()
             }).unwrap();
-            let complete_cmd = path[exec_path_index];
+            let complete_cmd = exec_path[exec_path_index];
             Command::new(complete_cmd).args(args.chars()).status().expect("failed to execute process");
         } else if input.trim() == String::from("exit 0") {
             break;
