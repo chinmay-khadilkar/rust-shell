@@ -25,12 +25,13 @@ fn main() {
             fs::metadata(full_path).is_ok()
         });
         if is_cmd_executable {
-            let exec_path_index = raw_path.split(":").position(|&dir| {
+            let path = raw_path.split(":").collect();
+            let exec_path_index = path.position(|&dir| {
                 let full_path = format!("{}/{}", dir, cmd);
                 fs::metadata(full_path).is_ok()
             }).unwrap();
             let complete_cmd = path[exec_path_index];
-            Command:new(complete_cmd).args(args).status().expect("failed to execute process");
+            Command::new(complete_cmd).args(args).status().expect("failed to execute process");
         } else if input.trim() == String::from("exit 0") {
             break;
         } else if cmd == String::from("type") && is_args_builtin == false {
