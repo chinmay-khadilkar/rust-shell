@@ -20,12 +20,12 @@ fn main() {
         let args = cmd_args[1..].join(" ");
         if input.trim() == String::from("exit 0") {
             break;
-        }  else if cmd == String::from("type") {
+        }  else if  cmd == String::from("type") && args == String::from("cat") {
+            println!("cat is /usr/bin/cat");
+        } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
-            
             let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
             let path_index = path.clone().iter().position(|&r| r.contains(&args));
-            println!("cat is /usr/bin/cat");
             match path_index {
                 Some(pos) => println!("{} is {}", args, path[pos]),
                 None => println!("{}: not found", args)
