@@ -38,7 +38,7 @@ fn main() {
                 println!("{}: not found", args)
             }
         } else if cmd == String::from("type") && is_args_builtin == true {
-            let pos = commands.iter().position(|&cmd| cmd == args);
+            // let pos = commands.iter().position(|&cmd| cmd == args);
             println!("{} is a shell builtin", args);
         } else if cmd == String::from("echo") || cmd.trim() == String::from("") {
             println!("{}", args);
