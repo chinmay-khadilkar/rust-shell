@@ -5,6 +5,8 @@ fn main() {
     // Uncomment this block to pass the first stage
     // let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
     let raw_path = env::var("PATH").unwrap();
+    let exe_path = env::args().collect();
+    println!("{}", exe_path);
     loop {
     
         print!("$ ");
@@ -20,8 +22,6 @@ fn main() {
         let args = cmd_args[1..].join(" ");
         if input.trim() == String::from("exit 0") {
             break;
-        }  else if  cmd == String::from("type") && args == String::from("cat") {
-            println!("cat is /usr/bin/cat");
         } else if cmd == String::from("type") {
             // let query_cmd = args.join("");
             let path: Vec<&str> = raw_path.split(":").collect::<Vec<&str>>();
