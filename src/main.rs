@@ -26,11 +26,17 @@ fn main() {
             fs::metadata(full_path).is_ok()
         });
         if cmd == String::from("cd") {
-            let change_dir_out = env::set_current_dir(&args);
+            let mut change_path = String::from("");
+            if args == String::from("~") {
+                change_path = env::var("HOME").unwrap();
+            } else {
+                change_path = args;
+            }
+            let change_dir_out = env::set_current_dir(&change_path);
             match change_dir_out {
                 Ok(change) => continue,
                 Err(_) => { 
-                    println!("cd: {}: No such file or directory", args) 
+                    println!("cd: {}: No such file or directory", change_path) 
                 }
             }
         } else if cmd == String::from("pwd") {
