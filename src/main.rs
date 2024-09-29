@@ -26,7 +26,10 @@ fn main() {
             let full_path = format!("{}/{}", dir, cmd);
             fs::metadata(full_path).is_ok()
         });
-        if is_cmd_executable {
+        if cmd == String::from("pwd") {
+            let path = env::current_dir()?;
+            println!("{}", path.display());
+        } else if is_cmd_executable {
             let mut full_path = String::from("");
             for each_path in exec_path.iter() {
                 let complete_path = format!("{}/{}", each_path, cmd);
