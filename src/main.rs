@@ -32,8 +32,22 @@ fn main() {
                 fs::metadata(full_path).is_ok()
             }).unwrap();
             let complete_cmd = exec_path[exec_path_index];
-            let exec_out = Command::new(complete_cmd).args(args.split(" ")).status().expect("failed to execute process").output()?;;
-            io::stdout().write(&exec_out.stdout)?;
+            let exec_out = Command::new(complete_cmd).args(args.split(" ")).output();
+            match exec_out {
+                Ok(output) => {
+                    if output.status().success() {
+                        let console_out = &String::from_utf8_lossy(&output.stdout);
+                        let console = console_out.trim_end();
+                        println!("{}", console);
+                    } else {
+                        let console_out = String::from_utf8_lossy(&output.stdout);
+                        println!("Command failed with error:\n{}", console_out);
+                    }
+                }
+                Err (_) => {
+                    println!("{}: command not found", cmd);
+                }
+            }
         } else if input.trim() == String::from("exit 0") {
             break;
         } else if cmd == String::from("type") && is_args_builtin == false {
