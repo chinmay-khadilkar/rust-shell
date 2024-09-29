@@ -3,7 +3,6 @@ use std::io::{self, Write};
 use std::env;
 use std::fs;
 use std::process::Command;
-use std::fmt::format;
 fn main() {
     // Uncomment this block to pass the first stage
     let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string(), "pwd".to_string(), "cd".to_string()];
