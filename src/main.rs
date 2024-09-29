@@ -30,7 +30,9 @@ fn main() {
             let change_dir_out = env::set_current_dir(&args);
             match change_dir_out {
                 Ok(change) => continue,
-                Err(_) => println!("cd: {}: No such file or directory", args);
+                Err(_) => { 
+                    println!("cd: {}: No such file or directory", args) 
+                }
             }
         } else if cmd == String::from("pwd") {
             let path = env::current_dir();
