@@ -35,7 +35,7 @@ fn main() {
             let exec_out = Command::new(complete_cmd).args(args.split(" ")).output();
             match exec_out {
                 Ok(output) => {
-                    if output.status().success() {
+                    if output.status.success() {
                         let console_out = &String::from_utf8_lossy(&output.stdout);
                         let console = console_out.trim_end();
                         println!("{}", console);
