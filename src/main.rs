@@ -6,7 +6,7 @@ use std::process::Command;
 use std::fmt::format;
 fn main() {
     // Uncomment this block to pass the first stage
-    let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string()];
+    let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string(), "pwd".to_string()];
     let raw_path = env::var("PATH").unwrap();
     // let exe_path: Vec<String> = env::args().collect();
     loop {
