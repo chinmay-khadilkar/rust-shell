@@ -26,13 +26,16 @@ fn main() {
             fs::metadata(full_path).is_ok()
         });
         if is_cmd_executable {
+            let mut full_path = String::from("");
+            for each_path in exec_path.iter() {
+                let complete_path = format("{}/{}", each_path, cmd);
+                if fs::metadata(&complete_path).is_ok() {
+                    full_path = complete_path;
+                }
+            }
             
-            let exec_path_index = exec_path.iter().position(|&dir| {
-                let full_path = format!("{}/{}", dir, cmd);
-                fs::metadata(full_path).is_ok()
-            }).unwrap();
-            let complete_cmd = exec_path[exec_path_index];
-            let exec_out = Command::new(complete_cmd).args(args.split(" ")).output();
+            // let complete_cmd = exec_path[exec_path_index];
+            let exec_out = Command::new(full_path).args(args.split(" ")).output();
             match exec_out {
                 Ok(output) => {
                     if output.status.success() {
