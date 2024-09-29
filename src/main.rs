@@ -6,7 +6,7 @@ use std::process::Command;
 use std::fmt::format;
 fn main() {
     // Uncomment this block to pass the first stage
-    let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string(), "pwd".to_string()];
+    let commands: Vec<String> = vec!["echo".to_string(), "type".to_string(), "exit".to_string(), "pwd".to_string(), "cd".to_string()];
     let raw_path = env::var("PATH").unwrap();
     // let exe_path: Vec<String> = env::args().collect();
     loop {
@@ -26,7 +26,13 @@ fn main() {
             let full_path = format!("{}/{}", dir, cmd);
             fs::metadata(full_path).is_ok()
         });
-        if cmd == String::from("pwd") {
+        if cmd == String::from("cd") {
+            let change_dir_out = env::set_current_dir(&args);
+            match change_dir_out {
+                Ok(change) => continue,
+                Err(_) => println!("cd: {}: No such file or directory", args);
+            }
+        } else if cmd == String::from("pwd") {
             let path = env::current_dir();
             match path {
                 Ok(pth) => {
