@@ -29,7 +29,7 @@ fn main() {
         if is_cmd_executable {
             let mut full_path = String::from("");
             for each_path in exec_path.iter() {
-                let complete_path = format("{}/{}", each_path, cmd);
+                let complete_path = format!("{}/{}", each_path, cmd);
                 if fs::metadata(&complete_path).is_ok() {
                     full_path = complete_path;
                 }
