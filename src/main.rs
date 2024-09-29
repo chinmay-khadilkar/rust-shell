@@ -27,8 +27,13 @@ fn main() {
             fs::metadata(full_path).is_ok()
         });
         if cmd == String::from("pwd") {
-            let path = env::current_dir()?;
-            println!("{}", path.display());
+            let path = env::current_dir();
+            match path {
+                Ok(pth) => {
+                    println!("{}", pth.display());
+                }
+                Err(_) => ()
+            }
         } else if is_cmd_executable {
             let mut full_path = String::from("");
             for each_path in exec_path.iter() {
